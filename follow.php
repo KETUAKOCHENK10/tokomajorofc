@@ -1,6 +1,5 @@
 <?php
 system("clear");
-<?php
 $off="\033[0m";
 $abu="\033[1;30m";
 $putih="\033[1;37m";
