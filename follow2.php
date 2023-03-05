@@ -19,7 +19,6 @@ if(json_decode($request,true)["isSuccess"] == "true"){
 echo " follow {$hijau}$target{$off} success nickname {$hijau}$nama{$off}\n";
 }else{
 echo " follow gagal,unknown error\n";
-echo $request;exit;
 }
 }
 
