@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 system("clear");
 $off="\033[0m";
 $abu="\033[1;30m";
