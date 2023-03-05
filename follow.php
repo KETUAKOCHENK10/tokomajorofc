@@ -19,7 +19,6 @@ if(json_decode($request,true)["isSuccess"] == "true"){
 echo "{$hijau}$nama{$off} success\n";
 }else{
 echo " follow gagal,unknown error\n";
-echo $request;exit;
 }
 }
 
