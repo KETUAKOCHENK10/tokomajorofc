@@ -56,7 +56,7 @@ echo "userid   : $userid\n\n";
 }
 }
 
-while(true){
+for($i=0;$i<=111;$i++){
 $nama=nama().rand(0,999);
 $domain="hieu.in";
 $create=fakemail($nama,$domain,1,0,0);
@@ -68,17 +68,27 @@ $ua2=random(16);
 $get_device=device($uuid,$ua1,$ua2);
 $js=json_decode($get_device,true);
 $auth=$js["authToken"];
+reg($auth,$uuid,$ua1,$ua2,$email);
 $save=save($auth,$uuid,$ua1,$ua2,$nama);
 $save=saveCharacter($auth,$uuid,$ua1,$ua2);
 //kirim otp & verifikasi
+
 $otp=send($auth,$uuid,$ua1,$ua2,$email);
-sleep(1);
+b:
 $buka=fakemail($nama,$domain,0,1,0);
 $otp=ex('Kode Verifikasi ZEPETO ','</h1>',1,$buka);
+if($otp==null){
+goto b;
+}
 $verif=confirm($auth,$uuid,$ua1,$ua2,$email,$otp);
 $verif2=conv($auth,$uuid,$ua1,$ua2,$email);
+curl(["Host: gw-napi.zepeto.io","authorization: Bearer $auth","x-zepeto-duid: $uuid","user-agent: android.zepeto_global/3.22.200 (android; U; Android OS 8.1.0 / API-27 (O11019/9f4ea240fa3f5f83); id-ID; occ-ID; ".$ua1." ".$ua2.")","x-timezone: Asia/Jakarta","content-type: application/json; charset=utf-8",],'https://gw-napi.zepeto.io/InitZepetoIdRequest','{"zepetoId":"'.$email.'","place":"profile_popup"}');
+curl(["Host: gw-napi.zepeto.io","authorization: Bearer $auth","x-zepeto-duid: $uuid","user-agent: android.zepeto_global/3.22.200 (android; U; Android OS 8.1.0 / API-27 (O11019/9f4ea240fa3f5f83); id-ID; occ-ID; ".$ua1." ".$ua2.")","timezone: Asia/Jakarta","content-type: application/json; charset=utf-8",],'https://gw-napi.zepeto.io/SaveProfileRequest_v2','{"job":"","name":"'.$nama.'","nationality":"","statusMessage":"","zepetoId":"'.$nama.'"}');
 $msg=json_decode($verif2,true)["isSuccess"];
 if($msg=="true"){
+$op=fopen("akun.txt","a+");
+fputs($op,PHP_EOL.$email);
+fclose($op);
 echo $email.PHP_EOL;
 }else{
 echo "failed to regist account\n";
