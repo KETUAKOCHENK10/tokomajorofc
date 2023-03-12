@@ -57,7 +57,7 @@ echo "userid   : $userid\n\n";
 }
 
 for($i=0;$i<=111;$i++){
-$nama=nama().rand(0,999);
+$nama=nama().rand(0,9999);
 $domain="hieu.in";
 $create=fakemail($nama,$domain,1,0,0);
 $email=fget("fakee");
