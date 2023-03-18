@@ -50,7 +50,6 @@ $target=$argv[1];
 $limit=$argv[2];
 
 
-for($i=1;$i>=1;$i++){
 while(true){
 $uuid=random(32);
 $ua1=random(15);
